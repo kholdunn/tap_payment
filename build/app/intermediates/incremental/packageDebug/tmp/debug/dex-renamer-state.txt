@@ -1,0 +1,4 @@
+#Tue Mar 01 12:23:25 PST 2022
+base.0=/Volumes/Mac_Data/Users/kennethdacquel/Documents/Work/tap_payment/tap_payment/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

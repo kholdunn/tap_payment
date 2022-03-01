@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tap_payment/app/services/log.dart';
+import 'package:tap_payment/app/services/ui_reference.dart';
 import 'package:tap_payment/app/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:tap_payment/app/widgets/custom_text_input/custom_text_input.dart';
 
-import '../../../widgets/custom_button/custom_button.dart';
+import '../../../widgets/custom_icon_button/custom_icon_button.dart';
 import '../../../widgets/custom_text_input/custom_text_input_icon_suffix.dart';
+import '../../../widgets/proceed_button/proceed_button.dart';
 import '../controllers/manage_products_controller.dart';
 import '../widgets/product_card.dart';
 
@@ -18,26 +21,34 @@ class ManageProductsView extends GetView<ManageProductsController> {
         title: "Manage Products",
         centerTitle: true,
         actions: [
-          CustomButton(
+          Obx(()=>CustomIconButton(
             onPressed: (){
               controller.changeTheme();
             },
-            child: Obx(()=>Icon(
-                controller.themeMode.value == ThemeMode.light ? Icons.light_mode :
-                controller.themeMode.value == ThemeMode.dark ? Icons.dark_mode : Icons.brightness_auto
-            )),
-          ),
-          CustomButton(
+            icon: controller.themeMode.value == ThemeMode.light ? Icons.light_mode :
+            controller.themeMode.value == ThemeMode.dark ? Icons.dark_mode : Icons.brightness_auto,
+          )),
+          CustomIconButton(
             onPressed: (){
               controller.deleteAllProduct();
             },
-            child: Icon(
-              Icons.delete_sweep
-            ),
+            icon: Icons.delete_sweep,
           )
         ],
       ),
-      body: Column(
+      resizeToAvoidBottomInset: false,
+      body: GestureDetector(
+        onPanDown: (x){
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: setupView(),
+      ),
+    );
+  }
+
+  Widget setupView(){
+    return Padding(
+      child: Column(
         children: [
           CustomTextInput(
             textEditingController: controller.searchTextEditingController.value,
@@ -47,6 +58,7 @@ class ManageProductsView extends GetView<ManageProductsController> {
             label: "Search Product",
             suffix: CustomTextInputIconSuffix(
               Icons.search_rounded,
+              size: 6.w
             ),
           ),
           Expanded(
@@ -58,9 +70,14 @@ class ManageProductsView extends GetView<ManageProductsController> {
                     Widget child;
                     if (snapshot.hasData) {
                       child = Obx(()=>ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        padding: EdgeInsets.only(
+                          top: 1.7.h,
+                        ),
                         itemBuilder: (BuildContext context, int index) {
                           return ProductCard(
                             products: controller.productList.value[index],
+                            onPressed: () {  },
                           );
                         },
                         itemCount: controller.productList.value.length,
@@ -101,11 +118,16 @@ class ManageProductsView extends GetView<ManageProductsController> {
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: CustomButton(
-                    child: Text("Add Product"),
-                    onPressed: (){
-                      controller.updateList();
-                    },
+                  child: Container(
+                    child: ProceedButton(
+                      title: "Add Product",
+                      onPressed: (){
+                        controller.updateList();
+                      },
+                    ),
+                    margin: EdgeInsets.only(
+                      bottom: 2.35.h
+                    ),
                   ),
                 )
 
@@ -113,6 +135,10 @@ class ManageProductsView extends GetView<ManageProductsController> {
             ),
           )
         ],
+      ),
+      padding: EdgeInsets.symmetric(
+        horizontal: 4.w,
+        vertical: 1.5.h
       ),
     );
   }

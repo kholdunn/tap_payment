@@ -2,6 +2,12 @@
   "configVersion": 2,
   "packages": [
     {
+      "name": "another_flushbar",
+      "rootUri": "file:///Volumes/Mac_Data/Users/kennethdacquel/development/flutter/.pub-cache/hosted/pub.dartlang.org/another_flushbar-1.10.28",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "async",
       "rootUri": "file:///Volumes/Mac_Data/Users/kennethdacquel/development/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.8.2",
       "packageUri": "lib/",
@@ -308,7 +314,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-03-01T17:42:38.744894Z",
+  "generated": "2022-03-01T21:18:47.832428Z",
   "generator": "pub",
   "generatorVersion": "2.16.1"
 }

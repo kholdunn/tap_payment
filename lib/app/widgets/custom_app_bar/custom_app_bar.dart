@@ -14,7 +14,7 @@ class CustomAppBar extends AppBar {
     List<Widget>? actions,
     Widget? leading,
     bool centerTitle = true,
-    double? fontSize = 15,
+    double? fontSize = 18,
     Color? foregroundColor,
     Color? backgroundColor,
     bool? automaticallyImplyLeading = true,
@@ -22,16 +22,20 @@ class CustomAppBar extends AppBar {
     SystemUiOverlayStyle? systemOverlayStyle,
     StatusIconBrightness? statusIconBrightness = StatusIconBrightness.white
   }) : super(
-    title: (title != "" && title != null) ? FittedBox(
-      child: Text(
-        title,
-        style: TextStyle(
-          fontSize: fontSize,
+    title: (title != "" && title != null) ? Container(
+      child: FittedBox(
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.w600
+          ),
+          textAlign: TextAlign.left,
         ),
-        textAlign: TextAlign.left,
+        fit: BoxFit.scaleDown,
       ),
-      fit: BoxFit.scaleDown,
     ) : null,
+
     elevation: 0,
     centerTitle: centerTitle,
     leading: leading,
