@@ -4,9 +4,15 @@ part of 'app_pages.dart';
 abstract class Routes {
   Routes._();
   static const HOME = _Paths.HOME;
+  static const ADD_PRODUCT = _Paths.ADD_PRODUCT;
+  static const MANAGE_PRODUCTS = _Paths.MANAGE_PRODUCTS;
+  static const SPLASH = _Paths.SPLASH;
 }
 
 abstract class _Paths {
   _Paths._();
   static const HOME = '/home';
+  static const ADD_PRODUCT = '/add-product';
+  static const MANAGE_PRODUCTS = '/manage-products';
+  static const SPLASH = '/splash-page';
 }
