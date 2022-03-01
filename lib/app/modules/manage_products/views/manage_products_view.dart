@@ -41,12 +41,12 @@ class ManageProductsView extends GetView<ManageProductsController> {
         onPanDown: (x){
           FocusScope.of(context).requestFocus(FocusNode());
         },
-        child: setupView(),
+        child: setupView(context),
       ),
     );
   }
 
-  Widget setupView(){
+  Widget setupView(BuildContext context){
     return Padding(
       child: Column(
         children: [
@@ -122,7 +122,7 @@ class ManageProductsView extends GetView<ManageProductsController> {
                     child: ProceedButton(
                       title: "Add Product",
                       onPressed: (){
-                        controller.updateList();
+                        controller.updateList(context);
                       },
                     ),
                     margin: EdgeInsets.only(

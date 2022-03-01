@@ -52,7 +52,6 @@ class CustomTextInput extends StatelessWidget {
               borderRadius: BorderRadius.circular(100.0),
               borderSide: BorderSide.none
             ),
-
             fillColor: fillColor ?? Theme.of(context).inputDecorationTheme.fillColor,
             filled: true,
             isDense: true,

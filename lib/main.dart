@@ -81,7 +81,7 @@ void main() {
           ),
           bodyMedium: TextStyle(
               fontSize: 19,
-              color: Colors.black
+              color: Colors.white
           )
       )
   );

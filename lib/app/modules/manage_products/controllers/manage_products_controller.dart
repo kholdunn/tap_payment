@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tap_payment/app/models/products_model.dart';
@@ -9,6 +10,7 @@ import 'package:tap_payment/app/services/log.dart';
 
 import '../../../services/db_services/database_operations.dart';
 import '../../../services/db_services/shared_preferences.dart';
+import '../../../widgets/custom_snackbar/custom_snackbar.dart';
 
 class ManageProductsController extends GetxController {
 
@@ -67,21 +69,23 @@ class ManageProductsController extends GetxController {
     return c.future;
   }
 
-  updateList(){
-
+  updateList(BuildContext context){
     Get.toNamed(Routes.ADD_PRODUCT)?.then((value){
       if(value != null) {
         Products x = value as Products;
         if(x.id != null) {
-
+          String operation = "";
           int index = productList.value.indexWhere((element) => element.id == x.id);
           if(index > -1) {
+            operation = "updated";
             productList.value[index].reactive(x);
             dbo.updateProduct(jsonEncode(x));
           } else {
             productList.reactive.value?.add(x);
+            operation = "added";
             dbo.addProduct(jsonEncode(x));
           }
+          CustomSnackBar(context, message: "Product was $operation successfully",)..show(context);
         }
       }
     });
