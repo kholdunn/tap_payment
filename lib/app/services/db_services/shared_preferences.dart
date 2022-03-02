@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum Operation {insert, replace, delete}
@@ -71,7 +73,7 @@ abstract class SP {
 
   static updateStringList({required String key, required String value}) {
     List<String>? stringList = prefs.getStringList(key);
-    int index = stringList?.indexWhere((element) => element == value) ?? -1;
+    int index = stringList?.indexWhere((element) => jsonDecode(element)["id"] == jsonDecode(value)["id"]) ?? -1;
     if(index > -1) {
       stringList?[index] = value;
     }

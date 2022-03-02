@@ -88,7 +88,7 @@ class ManageProductsController extends GetxController {
             dbo.deleteProduct(jsonEncode(x.toJson()));
           } else {
             operation = "updated";
-            productList[index] = x;
+            productList[index].reactive(x);
             dbo.updateProduct(jsonEncode(x.toJson()));
           }
           filter();
