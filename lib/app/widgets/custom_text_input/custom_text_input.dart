@@ -17,7 +17,8 @@ class CustomTextInput extends StatelessWidget {
     this.fillColor,
     this.readOnly,
     this.textInputAction = TextInputAction.done,
-    this.validator
+    this.validator,
+    this.enabled
   });
 
   final FocusNode? focusNode;
@@ -31,6 +32,7 @@ class CustomTextInput extends StatelessWidget {
   final bool? readOnly;
   final TextInputAction? textInputAction;
   final FormFieldValidator? validator;
+  final bool? enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +68,7 @@ class CustomTextInput extends StatelessWidget {
         inputFormatters: inputFormatters,
         keyboardType: keyboardType,
         readOnly: readOnly ?? false,
+        enabled: enabled ?? true,
         textInputAction: textInputAction,
         validator: validator,
       ),

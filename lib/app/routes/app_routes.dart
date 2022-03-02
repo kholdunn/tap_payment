@@ -8,6 +8,7 @@ abstract class Routes {
   static const MANAGE_PRODUCTS = _Paths.MANAGE_PRODUCTS;
   static const SPLASH = _Paths.SPLASH;
   static const IMAGE_VIEWER = _Paths.IMAGE_VIEWER;
+  static const CAMERA_PREVIEW = _Paths.CAMERA_PREVIEW;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const MANAGE_PRODUCTS = '/manage-products';
   static const SPLASH = '/splash-page';
   static const IMAGE_VIEWER = '/image-viewer';
+  static const CAMERA_PREVIEW = '/camera-preview';
 }

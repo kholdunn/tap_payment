@@ -2,6 +2,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:tap_payment/app/routes/app_pages.dart';
 import 'package:tap_payment/app/widgets/custom_app_bar/custom_app_bar.dart';
 
 import '../../../widgets/custom_icon_button/custom_icon_button.dart';
@@ -15,14 +16,6 @@ class ImageViewerView extends GetView<ImageViewerController> {
         title: "Image Viewer",
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        actions: [
-          CustomIconButton(
-            onPressed: (){
-
-            },
-            icon: Icons.camera_alt_outlined,
-          )
-        ],
       ),
       body: ExtendedImage.network(
         "https://picsum.photos/800",
@@ -44,43 +37,7 @@ class ImageViewerView extends GetView<ImageViewerController> {
         },
 
         mode: ExtendedImageMode.gesture,
-        // onDoubleTap: (ExtendedImageGestureState state) {
-        //   final Offset? pointerDownPosition =
-        //       state.pointerDownPosition;
-        //   final double? begin = state.gestureDetails!.totalScale;
-        //   double end;
-        //
-        //   //remove old
-        //   controller.doubleClickAnimation
-        //       ?.removeListener(controller.doubleClickAnimationListener);
-        //
-        //   //stop pre
-        //   controller.doubleClickAnimationController.stop();
-        //
-        //   //reset to use
-        //   controller.doubleClickAnimationController.reset();
-        //
-        //   if (begin == controller.doubleTapScales[0]) {
-        //     end = controller.doubleTapScales[1];
-        //   } else {
-        //     end = controller.doubleTapScales[0];
-        //   }
-        //
-        //   controller.doubleClickAnimationListener = () {
-        //     //print(_animation.value);
-        //     state.handleDoubleTap(
-        //         scale: controller.doubleClickAnimation!.value,
-        //         doubleTapPosition: pointerDownPosition);
-        //   };
-        //   controller.doubleClickAnimation = controller.doubleClickAnimationController
-        //       .drive(Tween<double>(begin: begin, end: end));
-        //
-        //   controller.doubleClickAnimation!
-        //       .addListener(controller.doubleClickAnimationListener);
-        //
-        //   controller.doubleClickAnimationController.forward();
-        // },
-        cache: true,
+        cache: false,
 
       ),
     );

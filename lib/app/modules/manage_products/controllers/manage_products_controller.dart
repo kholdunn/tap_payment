@@ -5,14 +5,20 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_workers/utils/debouncer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tap_payment/app/models/products_model.dart';
 import 'package:tap_payment/app/routes/app_pages.dart';
 import 'package:tap_payment/app/services/log.dart';
+import 'package:tap_payment/app/widgets/custom_bottom_sheet/custom_bottom_sheet.dart';
+import 'package:tap_payment/app/widgets/custom_item_list/sort_item_list.dart';
+import 'package:tap_payment/app/widgets/proceed_button/proceed_button.dart';
 
 import '../../../services/db_services/database_operations.dart';
 import '../../../services/db_services/shared_preferences.dart';
 import '../../../widgets/custom_snackbar/custom_snackbar.dart';
 import '../../../widgets/dialog_box/custom_confirm_dialog_box.dart';
+
+
 
 class ManageProductsController extends GetxController {
 
@@ -20,9 +26,10 @@ class ManageProductsController extends GetxController {
 
   final themeMode = ThemeMode.system.obs;
   final nextTheme = ThemeMode.system.obs;
-  List<Products> productList = [];
+  final productList = <Products>[].obs;
   final filteredProductList = List<Products>.empty(growable : true).obs;
   final searchTextEditingController = TextEditingController().obs;
+  final activeSorting = "date".obs;
 
   @override
   void onInit() {
@@ -66,7 +73,7 @@ class ManageProductsController extends GetxController {
   Future<bool> getData()async{
     Completer<bool> c = Completer();
     List<String> p = await dbo.getProductList();
-    productList = p.map((e) => Products.fromJson(jsonDecode(e))).toList();
+    productList.assignAll(p.map((e) => Products.fromJson(jsonDecode(e))));
     filter();
     c.complete(true);
     return c.future;
@@ -140,11 +147,62 @@ class ManageProductsController extends GetxController {
   filter({String query = ""}) {
     filteredProductList.assignAll(
       productList.where(
-        (element) => ((element.productName?.toLowerCase().contains(query.toLowerCase()) ?? false) ||
-            (element.productDescription?.toLowerCase().contains(query.toLowerCase()) ?? false) ||
-            (element.price?.toString().contains(query.toLowerCase()) ?? false)
+        (element) => ((element.productName?.toLowerCase().startsWith(query.toLowerCase()) ?? false) ||
+            (element.productDescription?.toLowerCase().startsWith(query.toLowerCase()) ?? false) ||
+            (element.price?.toString().startsWith(query.toLowerCase()) ?? false)
         )
       )
+    );
+    sort();
+  }
+
+  sort(){
+    if(filteredProductList.value.isNotEmpty) {
+      switch(activeSorting.value) {
+        case "name":
+          filteredProductList.sort((a, b) => a.productName!.compareTo(b.productName!));
+          break;
+        case "price":
+          filteredProductList.sort((a, b) => a.price!.compareTo(b.price!));
+          break;
+        default:
+          filteredProductList.sort((a, b) => a.timeStamp!.compareTo(b.timeStamp!));
+          break;
+      }
+
+    }
+  }
+
+  sortModal(BuildContext context){
+    showCustomBottomSheet(context,
+        title: "Sort",
+        closeButtonName: "Done",
+        sortItemList: [
+          Obx(()=>SortItemList(
+              title: "Product Name",
+              active: activeSorting.value == "name",
+              onPressed: (){
+                activeSorting.value = "name";
+                sort();
+              }
+          )),
+          Obx(()=>SortItemList(
+              title: "Price",
+              active: activeSorting.value == "price",
+              onPressed: (){
+                activeSorting.value = "price";
+                sort();
+              }
+          )),
+          Obx(()=>SortItemList(
+              title: "Date Added",
+              active: activeSorting.value == "date",
+              onPressed: (){
+                activeSorting.value = "date";
+                sort();
+              }
+          )),
+        ]
     );
   }
 

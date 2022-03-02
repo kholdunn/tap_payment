@@ -20,7 +20,7 @@ class ManageProductsView extends GetView<ManageProductsController> {
     return Scaffold(
       appBar: CustomAppBar(
         title: "Manage Products",
-        centerTitle: true,
+        centerTitle: false,
         actions: [
           Obx(()=>CustomIconButton(
             onPressed: (){
@@ -29,12 +29,18 @@ class ManageProductsView extends GetView<ManageProductsController> {
             icon: controller.themeMode.value == ThemeMode.light ? Icons.light_mode :
             controller.themeMode.value == ThemeMode.dark ? Icons.dark_mode : Icons.brightness_auto,
           )),
-          CustomIconButton(
+          Obx(()=>CustomIconButton(
+            onPressed: controller.productList.isEmpty ? null : (){
+              controller.sortModal(context);
+            },
+            icon: Icons.sort,
+          )),
+          Obx(()=>CustomIconButton(
             onPressed: controller.productList.isNotEmpty ? (){
               controller.deleteAllProduct(context);
             } : null,
             icon: Icons.delete_sweep,
-          )
+          ))
         ],
       ),
       resizeToAvoidBottomInset: false,
@@ -48,8 +54,7 @@ class ManageProductsView extends GetView<ManageProductsController> {
         onPressed: () {
           Get.toNamed(Routes.IMAGE_VIEWER);
         },
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.browse_gallery_outlined),
+        child: Icon(Icons.camera_alt),
       ),
     );
   }
@@ -58,18 +63,18 @@ class ManageProductsView extends GetView<ManageProductsController> {
     return Padding(
       child: Column(
         children: [
-          CustomTextInput(
+          Obx(()=>CustomTextInput(
             textEditingController: controller.searchTextEditingController.value,
             onChanged: (x){
               controller.filter(query: x);
             },
             label: "Search Product",
             suffix: CustomTextInputIconSuffix(
-              Icons.search_rounded,
-              size: 6.w
+                Icons.search_rounded,
+                size: 6.w
             ),
-            // readOnly: controller.productList.isEmpty,
-          ),
+            enabled: controller.productList.isNotEmpty,
+          )),
           Expanded(
             child: Stack(
               children: [

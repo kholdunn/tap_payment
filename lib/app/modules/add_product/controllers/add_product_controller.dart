@@ -78,6 +78,7 @@ class AddProductController extends GetxController {
       case Operation.add:
         if(validate()) {
           products.value.id ??= Uuid().v1();
+          products.value.timeStamp = DateTime.now().toString();
           Get.back(result: {
             "product":products.value,
             "operation":"add"

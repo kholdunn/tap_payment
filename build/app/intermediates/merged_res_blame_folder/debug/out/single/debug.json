@@ -22,9 +22,5 @@
     {
         "merged": "/Volumes/Mac_Data/Users/kennethdacquel/Documents/Work/tap_payment/tap_payment/build/app/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
         "source": "/Volumes/Mac_Data/Users/kennethdacquel/Documents/Work/tap_payment/tap_payment/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
-    },
-    {
-        "merged": "/Volumes/Mac_Data/Users/kennethdacquel/Documents/Work/tap_payment/tap_payment/build/app/intermediates/res/merged/debug/drawable_launch_background.xml.flat",
-        "source": "/Volumes/Mac_Data/Users/kennethdacquel/Documents/Work/tap_payment/tap_payment/android/app/src/main/res/drawable/launch_background.xml"
     }
 ]
