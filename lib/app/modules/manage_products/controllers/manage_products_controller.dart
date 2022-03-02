@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/src/rx_workers/utils/debouncer.dart';
 import 'package:tap_payment/app/models/products_model.dart';
 import 'package:tap_payment/app/routes/app_pages.dart';
 import 'package:tap_payment/app/services/log.dart';
@@ -18,8 +19,10 @@ class ManageProductsController extends GetxController {
 
   final themeMode = ThemeMode.system.obs;
   final nextTheme = ThemeMode.system.obs;
-  final productList = List<Products>.empty(growable : true).obs;
+  List<Products> productList = [];
+  final filteredProductList = List<Products>.empty(growable : true).obs;
   final searchTextEditingController = TextEditingController().obs;
+  final _debouncer = Debouncer(delay: Duration(milliseconds: 500));
 
   @override
   void onInit() {
@@ -64,7 +67,7 @@ class ManageProductsController extends GetxController {
     Completer<bool> c = Completer();
     List<String> p = await dbo.getProductList();
     productList.assignAll(p.map((e) => Products.fromJson(jsonDecode(e))));
-    // productList.value = p.map((e) => Products.fromJson(jsonDecode(e))).toList();
+    filter();
     c.complete(true);
     return c.future;
   }
@@ -77,18 +80,17 @@ class ManageProductsController extends GetxController {
         Products x = value["product"] as Products;
         if(x.id != null) {
           String operation = "";
-          int index = productList.value.indexWhere((element) => element.id == x.id);
+          int index = productList.indexWhere((element) => element.id == x.id);
           if(value["operation"] == "delete") {
             operation = "updated";
-            productList.value[index].reactive();
+            productList[index].reactive();
             dbo.deleteProduct(value["product"]);
           } else {
             operation = "deleted";
-            productList.value[index].reactive(x);
+            productList[index].reactive(x);
             dbo.updateProduct(jsonEncode(x));
           }
-
-
+          filter();
           CustomSnackBar(context, message: "Product was $operation successfully",).show(context);
         }
       }
@@ -102,6 +104,7 @@ class ManageProductsController extends GetxController {
         if(x.id != null) {
           productList.reactive.value?.add(x);
           dbo.addProduct(jsonEncode(x));
+          filter();
           CustomSnackBar(context, message: "Product was added successfully",).show(context);
         }
       }
@@ -109,8 +112,9 @@ class ManageProductsController extends GetxController {
   }
 
   deleteProduct(String id){
-    int index = productList.value.indexWhere((element) => element.id == id);
+    int index = productList.indexWhere((element) => element.id == id);
     productList.removeWhere((element) => element.id == id);
+    filter();
   }
 
   deleteAllProduct(){
@@ -118,5 +122,10 @@ class ManageProductsController extends GetxController {
     dbo.deleteAllProducts();
   }
 
+  filter({String query = ""}) {
+
+    _debouncer( () => filteredProductList.value.assignAll(productList.where((element) => (element.productName?.toLowerCase().contains(query.toLowerCase()) ?? false))));
+    ;
+  }
 
 }

@@ -53,7 +53,7 @@ class ManageProductsView extends GetView<ManageProductsController> {
           CustomTextInput(
             textEditingController: controller.searchTextEditingController.value,
             onChanged: (x){
-
+              controller.filter(query: x);
             },
             label: "Search Product",
             suffix: CustomTextInputIconSuffix(
@@ -76,13 +76,13 @@ class ManageProductsView extends GetView<ManageProductsController> {
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           return ProductCard(
-                            products: controller.productList.value[index],
+                            products: controller.filteredProductList.value[index],
                             onPressed: () {
-                              controller.openItem(context, product: controller.productList.value[index]);
+                              controller.openItem(context, product: controller.filteredProductList.value[index]);
                             },
                           );
                         },
-                        itemCount: controller.productList.value.length,
+                        itemCount: controller.filteredProductList.value.length,
                       ));
                     } else if (snapshot.hasError) {
                       child = Column(
