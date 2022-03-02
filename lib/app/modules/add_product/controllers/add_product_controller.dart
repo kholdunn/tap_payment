@@ -1,11 +1,13 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tap_payment/app/services/log.dart';
 import '../../../services/db_services/database_operations.dart';
 import '../../../models/products_model.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../../widgets/dialog_box/custom_confirm_dialog_box.dart';
 
 enum Operation {edit, add, view}
 
@@ -68,7 +70,7 @@ class AddProductController extends GetxController {
   @override
   void onClose() {}
 
-  saveProduct(){
+  saveProduct(BuildContext context) async {
 
     switch(operation.value) {
       case Operation.add:
@@ -85,10 +87,59 @@ class AddProductController extends GetxController {
         });
         break;
       default:
-        Get.back(result: {
-          "product":products.value,
-          "operation":"delete"
-        });
+
+
+
+
+        // Get.defaultDialog(
+        //   title: "Delete Product",
+        //   middleText: "Are you sure you want to delete ${products.value.productName}?",
+        //   textConfirm: "Confirm",
+        //   textCancel: "Cancel",
+        //   onConfirm: (){
+        //     Log.n("ASdfkjsh", "ZCXvzx");
+        //   },
+        //   onCancel: (){
+        //     Log.n("Zcxvjzhkx", "sdfas");
+        //
+        //   }
+        // );
+
+
+        showCustomConfirmDialogBox(
+          context,
+          title: "Delete Product",
+          content: "Are you sure you want to delete ${products.value.productName}?",
+          onCancel: (){
+
+          },
+          onConfirm: (){
+            Get.back(result: {
+              "product":products.value,
+              "operation":"delete"
+            });
+          }
+        );
+
+        // await showDialog(
+        //     context: context,
+        //     builder: (context) => AlertDialog(
+        //       actions: [
+        //         TextButton(onPressed: (){
+        //           Navigator.of(context).pop();
+        //         },
+        //             child: Text(
+        //                 "ASDfasd"
+        //             )
+        //         )
+        //       ],
+        //       title: Text("Delete Product"),
+        //       content: Text(
+        //           "Are you sure you want to delete ${products.value.productName}?"
+        //       ),
+        //     )
+        // );
+
         break;
     }
   }

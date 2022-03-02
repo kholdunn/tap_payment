@@ -53,6 +53,17 @@ void main() {
 
         ),
       ),
+      dialogTheme: DialogTheme(
+        backgroundColor: Colors.black,
+        titleTextStyle: TextStyle(
+          fontSize: 20,
+          color: Colors.white
+        ),
+        contentTextStyle: TextStyle(
+          fontSize: 15,
+          color: Colors.grey
+        ),
+      ),
       inputDecorationTheme: InputDecorationTheme(
         fillColor: Colors.black
       ),
@@ -82,6 +93,10 @@ void main() {
           bodyMedium: TextStyle(
               fontSize: 19,
               color: Colors.white
+          ),
+          bodySmall: TextStyle(
+              fontSize: 14,
+              color: Colors.white
           )
       )
   );
@@ -105,6 +120,7 @@ void main() {
     inputDecorationTheme: InputDecorationTheme(
       fillColor: Colors.white
     ),
+
     buttonTheme: ButtonThemeData(
       buttonColor: Colors.white,
       splashColor: AppColors.pink,
@@ -122,11 +138,20 @@ void main() {
         ),
         textStyle: TextStyle(
           color: Colors.black,
-
         ),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         padding: EdgeInsets.zero,
-
+      ),
+    ),
+    dialogTheme: DialogTheme(
+      backgroundColor: Colors.white,
+      titleTextStyle: TextStyle(
+        fontSize: 20,
+        color: Colors.black
+      ),
+      contentTextStyle: TextStyle(
+        fontSize: 15,
+        color: Colors.grey
       ),
     ),
     textTheme: TextTheme(
@@ -139,7 +164,6 @@ void main() {
           fontSize: 19,
           color: AppColors.pink
       ),
-
       titleSmall: TextStyle(
           fontSize: 15,
           color: Colors.grey
@@ -155,6 +179,10 @@ void main() {
       bodyMedium: TextStyle(
         fontSize: 19,
         color: Colors.black
+      ),
+      bodySmall: TextStyle(
+          fontSize: 14,
+          color: Colors.black
       )
     )
   );

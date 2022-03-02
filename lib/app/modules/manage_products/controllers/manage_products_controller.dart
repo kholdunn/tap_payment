@@ -12,6 +12,7 @@ import 'package:tap_payment/app/services/log.dart';
 import '../../../services/db_services/database_operations.dart';
 import '../../../services/db_services/shared_preferences.dart';
 import '../../../widgets/custom_snackbar/custom_snackbar.dart';
+import '../../../widgets/dialog_box/custom_confirm_dialog_box.dart';
 
 class ManageProductsController extends GetxController {
 
@@ -120,10 +121,21 @@ class ManageProductsController extends GetxController {
     filter();
   }
 
-  deleteAllProduct(){
-    productList.clear();
-    dbo.deleteAllProducts();
-    filter();
+  deleteAllProduct(BuildContext context){
+    showCustomConfirmDialogBox(
+        context,
+        title: "Delete All Products",
+        content: "Are you sure you want to delete all products?",
+        onCancel: (){
+
+        },
+        onConfirm: (){
+          productList.clear();
+          dbo.deleteAllProducts();
+          filter();
+        }
+    );
+
   }
 
   filter({String query = ""}) {

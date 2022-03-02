@@ -30,7 +30,7 @@ class ManageProductsView extends GetView<ManageProductsController> {
           )),
           CustomIconButton(
             onPressed: (){
-              controller.deleteAllProduct();
+              controller.deleteAllProduct(context);
             },
             icon: Icons.delete_sweep,
           )
