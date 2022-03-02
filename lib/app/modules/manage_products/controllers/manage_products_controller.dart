@@ -66,7 +66,7 @@ class ManageProductsController extends GetxController {
   Future<bool> getData()async{
     Completer<bool> c = Completer();
     List<String> p = await dbo.getProductList();
-    productList.assignAll(p.map((e) => Products.fromJson(jsonDecode(e))));
+    productList = p.map((e) => Products.fromJson(jsonDecode(e))).toList();
     filter();
     c.complete(true);
     return c.future;
@@ -87,7 +87,7 @@ class ManageProductsController extends GetxController {
             dbo.deleteProduct(value["product"]);
           } else {
             operation = "deleted";
-            productList[index].reactive(x);
+            productList[index] = x;
             dbo.updateProduct(jsonEncode(x));
           }
           filter();
@@ -102,7 +102,7 @@ class ManageProductsController extends GetxController {
       if(value != null) {
         Products x = value["product"] as Products;
         if(x.id != null) {
-          productList.reactive.value?.add(x);
+          productList.add(x);
           dbo.addProduct(jsonEncode(x));
           filter();
           CustomSnackBar(context, message: "Product was added successfully",).show(context);
@@ -118,14 +118,13 @@ class ManageProductsController extends GetxController {
   }
 
   deleteAllProduct(){
-    productList.assignAll([]);
+    productList.clear();
     dbo.deleteAllProducts();
+    filter();
   }
 
   filter({String query = ""}) {
-
-    _debouncer( () => filteredProductList.value.assignAll(productList.where((element) => (element.productName?.toLowerCase().contains(query.toLowerCase()) ?? false))));
-    ;
+    filteredProductList.assignAll(productList.where((element) => (element.productName?.toLowerCase().contains(query.toLowerCase()) ?? false)));
   }
 
 }

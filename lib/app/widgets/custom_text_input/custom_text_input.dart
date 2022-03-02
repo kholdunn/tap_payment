@@ -28,7 +28,6 @@ class CustomTextInput extends StatelessWidget {
   final Color? fillColor;
   final bool? readOnly;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -23,6 +23,10 @@ class AddProductController extends GetxController {
   final descriptionTextEditingController = TextEditingController().obs;
   final priceTextEditingController = TextEditingController().obs;
 
+  final nameFocusNode = FocusNode();
+  final descriptionFocusNode = FocusNode();
+  final priceFocusNode = FocusNode();
+
   @override
   void onInit() {
     super.onInit();
@@ -48,9 +52,9 @@ class AddProductController extends GetxController {
     var data = Get.arguments;
     if(data != null) {
       Products x = Products.fromJson(Get.arguments["product"]);
-      nameTextEditingController.value.text.reactive(x.productName);
-      descriptionTextEditingController.value.text.reactive(x.productDescription);
-      priceTextEditingController.value.text.reactive(x.productName);
+      nameTextEditingController.value.text = "${x.productName}";
+      descriptionTextEditingController.value.text = "${x.productDescription}";
+      priceTextEditingController.value.text = "${x.price}";
       operation.value = Operation.view;
     }
 
@@ -89,8 +93,9 @@ class AddProductController extends GetxController {
     }
   }
 
-  edit(){
+  edit(BuildContext context){
     operation.value = Operation.edit;
+    FocusScope.of(context).requestFocus(nameFocusNode);
   }
 
 

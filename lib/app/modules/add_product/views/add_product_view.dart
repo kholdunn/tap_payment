@@ -26,7 +26,7 @@ class AddProductView extends GetView<AddProductController> {
         actions: [
           if(controller.operation.value != Operation.add)Obx(()=>CustomIconButton(
             onPressed: controller.operation.value != Operation.edit ? (){
-              controller.edit();
+              controller.edit(context);
             } : null,
             icon: Icons.edit,
           ))
@@ -50,19 +50,21 @@ class AddProductView extends GetView<AddProductController> {
       child: Column(
         children: [
           SizedBox(height: 4.h,),
-          CustomTextInput(
+          Obx(() =>CustomTextInput(
             label: "Product Name",
             textEditingController: controller.nameTextEditingController.value,
             readOnly: controller.operation.value == Operation.view,
-          ),
+            focusNode: controller.nameFocusNode,
+          )),
           SizedBox(height: 1.3.h),
-          CustomTextInput(
+          Obx(()=>CustomTextInput(
             label: "Product Description",
             textEditingController: controller.descriptionTextEditingController.value,
             readOnly: controller.operation.value == Operation.view,
-          ),
+            focusNode: controller.descriptionFocusNode,
+          )),
           SizedBox(height: 1.3.h),
-          CustomTextInput(
+          Obx(()=>CustomTextInput(
             label: "Product Price",
             textEditingController: controller.priceTextEditingController.value,
             suffix: CustomTextInputTextSuffix(VariableConstants.currency),
@@ -72,7 +74,8 @@ class AddProductView extends GetView<AddProductController> {
             ],
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             readOnly: controller.operation.value == Operation.view,
-          ),
+            focusNode: controller.priceFocusNode,
+          )),
           SizedBox(height: 1.3.h),
           Obx(() => ProceedButton(
             title: controller.operation.value == Operation.view ? "Delete" :
