@@ -31,8 +31,6 @@ class AddProductController extends GetxController {
   void onInit() {
     super.onInit();
 
-
-
     nameTextEditingController.value.addListener(() {
       products.value.productName = nameTextEditingController.value.text;
       nameText.value = nameTextEditingController.value.text;
@@ -46,12 +44,13 @@ class AddProductController extends GetxController {
         products.value.price = double.parse(priceTextEditingController.value.text);
         priceText.value = priceTextEditingController.value.text;
       }
-
     });
 
     var data = Get.arguments;
     if(data != null) {
       Products x = Products.fromJson(Get.arguments["product"]);
+      Log.n("ASdfsadjkgh", x.id);
+      products.value = x;
       nameTextEditingController.value.text = "${x.productName}";
       descriptionTextEditingController.value.text = "${x.productDescription}";
       priceTextEditingController.value.text = "${x.price}";

@@ -78,17 +78,18 @@ class ManageProductsController extends GetxController {
     })?.then((value){
       if(value != null) {
         Products x = value["product"] as Products;
+
         if(x.id != null) {
           String operation = "";
           int index = productList.indexWhere((element) => element.id == x.id);
           if(value["operation"] == "delete") {
-            operation = "updated";
-            productList[index].reactive();
-            dbo.deleteProduct(value["product"]);
-          } else {
             operation = "deleted";
+            productList[index].reactive();
+            dbo.deleteProduct(jsonEncode(x.toJson()));
+          } else {
+            operation = "updated";
             productList[index] = x;
-            dbo.updateProduct(jsonEncode(x));
+            dbo.updateProduct(jsonEncode(x.toJson()));
           }
           filter();
           CustomSnackBar(context, message: "Product was $operation successfully",).show(context);
@@ -99,7 +100,9 @@ class ManageProductsController extends GetxController {
 
   updateList(BuildContext context){
     Get.toNamed(Routes.ADD_PRODUCT)?.then((value){
+
       if(value != null) {
+
         Products x = value["product"] as Products;
         if(x.id != null) {
           productList.add(x);
