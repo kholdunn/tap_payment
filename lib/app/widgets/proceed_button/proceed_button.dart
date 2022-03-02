@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tap_payment/app/constants/app_colors.dart';
-import 'package:tap_payment/app/services/debug_ui.dart';
 
 class ProceedButton extends TextButton {
 

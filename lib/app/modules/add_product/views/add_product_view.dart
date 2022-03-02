@@ -7,7 +7,6 @@ import 'package:tap_payment/app/constants/variable_constants.dart';
 import 'package:tap_payment/app/services/debug_ui.dart';
 import 'package:tap_payment/app/services/log.dart';
 import 'package:tap_payment/app/widgets/custom_text_input/custom_text_input_text_suffix.dart';
-import '../../../services/ui_reference.dart';
 import '../../../widgets/custom_app_bar/custom_app_bar.dart';
 
 import '../../../widgets/custom_icon_button/custom_icon_button.dart';
@@ -59,7 +58,7 @@ class AddProductView extends GetView<AddProductController> {
                       textInputAction: TextInputAction.next,
                       validator: (value) {
                         if (value.toString().length < 3) {
-                          return 'Please enter more text';
+                          return 'Product name should be at least 3 characters';
                         }
                         return null;
                       },
@@ -73,7 +72,7 @@ class AddProductView extends GetView<AddProductController> {
                       textInputAction: TextInputAction.next,
                       validator: (value) {
                         if (value.toString().length < 3) {
-                          return 'Please enter more text';
+                          return 'Description should be at least 3 characters';
                         }
                         return null;
                       },

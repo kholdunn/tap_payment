@@ -122,7 +122,6 @@ class ManageProductsController extends GetxController {
   }
 
   deleteProduct(String id){
-    int index = productList.indexWhere((element) => element.id == id);
     productList.removeWhere((element) => element.id == id);
     filter();
   }

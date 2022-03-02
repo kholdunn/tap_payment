@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tap_payment/app/routes/app_pages.dart';
-import 'package:tap_payment/app/services/log.dart';
-import 'package:tap_payment/app/services/ui_reference.dart';
 import 'package:tap_payment/app/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:tap_payment/app/widgets/custom_text_input/custom_text_input.dart';
 
