@@ -21,7 +21,7 @@ class AddProductView extends GetView<AddProductController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Add Product",
+        title: controller.title.value,
         centerTitle: true,
         actions: [
           if(controller.operation.value != Operation.add)Obx(()=>CustomIconButton(

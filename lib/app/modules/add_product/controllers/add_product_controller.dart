@@ -26,6 +26,7 @@ class AddProductController extends GetxController {
   final nameFocusNode = FocusNode();
   final descriptionFocusNode = FocusNode();
   final priceFocusNode = FocusNode();
+  final title = "Add Product".obs;
 
   @override
   void onInit() {
@@ -49,7 +50,7 @@ class AddProductController extends GetxController {
     var data = Get.arguments;
     if(data != null) {
       Products x = Products.fromJson(Get.arguments["product"]);
-      Log.n("ASdfsadjkgh", x.id);
+      title.value = "${x.productName}";
       products.value = x;
       nameTextEditingController.value.text = "${x.productName}";
       descriptionTextEditingController.value.text = "${x.productDescription}";
