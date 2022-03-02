@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:tap_payment/app/routes/app_pages.dart';
 import 'package:tap_payment/app/services/log.dart';
 import 'package:tap_payment/app/services/ui_reference.dart';
 import 'package:tap_payment/app/widgets/custom_app_bar/custom_app_bar.dart';
@@ -29,9 +30,9 @@ class ManageProductsView extends GetView<ManageProductsController> {
             controller.themeMode.value == ThemeMode.dark ? Icons.dark_mode : Icons.brightness_auto,
           )),
           CustomIconButton(
-            onPressed: (){
+            onPressed: controller.productList.isNotEmpty ? (){
               controller.deleteAllProduct(context);
-            },
+            } : null,
             icon: Icons.delete_sweep,
           )
         ],
@@ -42,6 +43,13 @@ class ManageProductsView extends GetView<ManageProductsController> {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: setupView(context),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed(Routes.IMAGE_VIEWER);
+        },
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.browse_gallery_outlined),
       ),
     );
   }
@@ -60,6 +68,7 @@ class ManageProductsView extends GetView<ManageProductsController> {
               Icons.search_rounded,
               size: 6.w
             ),
+            // readOnly: controller.productList.isEmpty,
           ),
           Expanded(
             child: Stack(

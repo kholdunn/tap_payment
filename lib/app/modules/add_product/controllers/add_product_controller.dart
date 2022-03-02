@@ -30,6 +30,8 @@ class AddProductController extends GetxController {
   final priceFocusNode = FocusNode();
   final title = "Add Product".obs;
 
+  final formKey = GlobalKey<FormState>();
+
   @override
   void onInit() {
     super.onInit();
@@ -74,37 +76,24 @@ class AddProductController extends GetxController {
 
     switch(operation.value) {
       case Operation.add:
-        products.value.id ??= Uuid().v1();
-        Get.back(result: {
-          "product":products.value,
-          "operation":"add"
-        });
+        if(validate()) {
+          products.value.id ??= Uuid().v1();
+          Get.back(result: {
+            "product":products.value,
+            "operation":"add"
+          });
+        }
         break;
       case Operation.edit:
-        Get.back(result: {
-          "product":products.value,
-          "operation":"edit"
-        });
+        if(validate()) {
+          Get.back(result: {
+            "product":products.value,
+            "operation":"edit"
+          });
+        }
+
         break;
       default:
-
-
-
-
-        // Get.defaultDialog(
-        //   title: "Delete Product",
-        //   middleText: "Are you sure you want to delete ${products.value.productName}?",
-        //   textConfirm: "Confirm",
-        //   textCancel: "Cancel",
-        //   onConfirm: (){
-        //     Log.n("ASdfkjsh", "ZCXvzx");
-        //   },
-        //   onCancel: (){
-        //     Log.n("Zcxvjzhkx", "sdfas");
-        //
-        //   }
-        // );
-
 
         showCustomConfirmDialogBox(
           context,
@@ -120,27 +109,15 @@ class AddProductController extends GetxController {
             });
           }
         );
-
-        // await showDialog(
-        //     context: context,
-        //     builder: (context) => AlertDialog(
-        //       actions: [
-        //         TextButton(onPressed: (){
-        //           Navigator.of(context).pop();
-        //         },
-        //             child: Text(
-        //                 "ASDfasd"
-        //             )
-        //         )
-        //       ],
-        //       title: Text("Delete Product"),
-        //       content: Text(
-        //           "Are you sure you want to delete ${products.value.productName}?"
-        //       ),
-        //     )
-        // );
-
         break;
+    }
+  }
+
+  bool validate(){
+    if (formKey.currentState!.validate()) {
+      return true;
+    } else {
+      return false;
     }
   }
 

@@ -12,6 +12,10 @@
       <root url="file://$PROJECT_DIR$/../../flutter/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-2.0.3" />
       <root url="file://$PROJECT_DIR$/../../flutter/flutter/.pub-cache/hosted/pub.dartlang.org/camera_web-0.2.1+3" />
       <root url="file://$PROJECT_DIR$/../../flutter/flutter/.pub-cache/hosted/pub.dartlang.org/camera-0.9.4+14" />
+      <root url="file://$PROJECT_DIR$/../../flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_ios-2.0.8" />
+      <root url="file://$PROJECT_DIR$/../../flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-2.0.5" />
+      <root url="file://$PROJECT_DIR$/../../flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.12" />
+      <root url="file://$PROJECT_DIR$/../../flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.9" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

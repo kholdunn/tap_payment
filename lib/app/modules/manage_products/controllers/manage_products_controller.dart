@@ -23,7 +23,6 @@ class ManageProductsController extends GetxController {
   List<Products> productList = [];
   final filteredProductList = List<Products>.empty(growable : true).obs;
   final searchTextEditingController = TextEditingController().obs;
-  final _debouncer = Debouncer(delay: Duration(milliseconds: 500));
 
   @override
   void onInit() {
@@ -139,7 +138,14 @@ class ManageProductsController extends GetxController {
   }
 
   filter({String query = ""}) {
-    filteredProductList.assignAll(productList.where((element) => (element.productName?.toLowerCase().contains(query.toLowerCase()) ?? false)));
+    filteredProductList.assignAll(
+      productList.where(
+        (element) => ((element.productName?.toLowerCase().contains(query.toLowerCase()) ?? false) ||
+            (element.productDescription?.toLowerCase().contains(query.toLowerCase()) ?? false) ||
+            (element.price?.toString().contains(query.toLowerCase()) ?? false)
+        )
+      )
+    );
   }
 
 }

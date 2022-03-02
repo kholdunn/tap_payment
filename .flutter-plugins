@@ -2,7 +2,11 @@
 camera=/Users/tpconnects/Documents/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/camera-0.9.4+14/
 camera_web=/Users/tpconnects/Documents/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/camera_web-0.2.1+3/
 flutter_plugin_android_lifecycle=/Users/tpconnects/Documents/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.5/
+path_provider=/Users/tpconnects/Documents/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.9/
+path_provider_android=/Users/tpconnects/Documents/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.12/
+path_provider_ios=/Users/tpconnects/Documents/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_ios-2.0.8/
 path_provider_linux=/Users/tpconnects/Documents/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.5/
+path_provider_macos=/Users/tpconnects/Documents/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-2.0.5/
 path_provider_windows=/Users/tpconnects/Documents/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.5/
 shared_preferences=/Users/tpconnects/Documents/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-2.0.13/
 shared_preferences_android=/Users/tpconnects/Documents/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_android-2.0.11/
