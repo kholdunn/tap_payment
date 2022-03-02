@@ -92,6 +92,7 @@ class AddProductView extends GetView<AddProductController> {
                       textInputAction: TextInputAction.done
                     )),
                     SizedBox(height: 1.3.h),
+                    
                     Obx(() => ProceedButton(
                       title: controller.operation.value == Operation.view ? "Delete" :
                       controller.operation.value == Operation.edit ? "Update" : "Submit",
