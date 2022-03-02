@@ -7,6 +7,7 @@ import '../../../services/db_services/database_operations.dart';
 import '../../../models/products_model.dart';
 import 'package:uuid/uuid.dart';
 
+enum Operation {edit, add, view}
 
 class AddProductController extends GetxController {
 
@@ -17,7 +18,7 @@ class AddProductController extends GetxController {
   final descText = "".obs;
   final priceText = "".obs;
 
-
+  final operation = Operation.add.obs;
   final nameTextEditingController = TextEditingController().obs;
   final descriptionTextEditingController = TextEditingController().obs;
   final priceTextEditingController = TextEditingController().obs;
@@ -25,6 +26,8 @@ class AddProductController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
+
 
     nameTextEditingController.value.addListener(() {
       products.value.productName = nameTextEditingController.value.text;
@@ -42,6 +45,15 @@ class AddProductController extends GetxController {
 
     });
 
+    var data = Get.arguments;
+    if(data != null) {
+      Products x = Products.fromJson(Get.arguments["product"]);
+      nameTextEditingController.value.text.reactive(x.productName);
+      descriptionTextEditingController.value.text.reactive(x.productDescription);
+      priceTextEditingController.value.text.reactive(x.productName);
+      operation.value = Operation.view;
+    }
+
   }
 
   @override
@@ -54,13 +66,33 @@ class AddProductController extends GetxController {
 
   saveProduct(){
 
-    Log.n("nameText.value", nameText.value);
-    Log.n("descText.value", descText.value);
-    Log.n("priceText.value", priceText.value);
-
-    products.value.id ??= Uuid().v1();
-    Get.back(result: products.value);
-
+    switch(operation.value) {
+      case Operation.add:
+        products.value.id ??= Uuid().v1();
+        Get.back(result: {
+          "product":products.value,
+          "operation":"add"
+        });
+        break;
+      case Operation.edit:
+        Get.back(result: {
+          "product":products.value,
+          "operation":"edit"
+        });
+        break;
+      default:
+        Get.back(result: {
+          "product":products.value,
+          "operation":"delete"
+        });
+        break;
+    }
   }
+
+  edit(){
+    operation.value = Operation.edit;
+  }
+
+
 
 }

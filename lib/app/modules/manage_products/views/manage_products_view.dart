@@ -77,7 +77,9 @@ class ManageProductsView extends GetView<ManageProductsController> {
                         itemBuilder: (BuildContext context, int index) {
                           return ProductCard(
                             products: controller.productList.value[index],
-                            onPressed: () {  },
+                            onPressed: () {
+                              controller.openItem(context, product: controller.productList.value[index]);
+                            },
                           );
                         },
                         itemCount: controller.productList.value.length,

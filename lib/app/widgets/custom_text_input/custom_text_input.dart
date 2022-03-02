@@ -14,7 +14,8 @@ class CustomTextInput extends StatelessWidget {
     required this.label,
     this.inputFormatters,
     this.keyboardType,
-    this.fillColor
+    this.fillColor,
+    this.readOnly
   });
 
   final FocusNode? focusNode;
@@ -25,44 +26,43 @@ class CustomTextInput extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
   final Color? fillColor;
-
+  final bool? readOnly;
 
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
-          autocorrect: false,
-          focusNode: focusNode,
-          controller: textEditingController,
-          onChanged: onChanged,
-          style: Theme.of(context).textTheme.bodyMedium,
-
-          decoration: InputDecoration(
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            suffixIcon: suffix,
-            label: FittedBox(
-              child: Text(
-                label,
-                style: Theme.of(context).textTheme.labelMedium,
-              ),
-              fit: BoxFit.scaleDown,
+        autocorrect: false,
+        focusNode: focusNode,
+        controller: textEditingController,
+        onChanged: onChanged,
+        style: Theme.of(context).textTheme.bodyMedium,
+        decoration: InputDecoration(
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          suffixIcon: suffix,
+          label: FittedBox(
+            child: Text(
+              label,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(100.0),
-              borderSide: BorderSide.none
-            ),
-            fillColor: fillColor ?? Theme.of(context).inputDecorationTheme.fillColor,
-            filled: true,
-            isDense: true,
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 1.8.h,
-              horizontal: 3.w
-            ),
+            fit: BoxFit.scaleDown,
           ),
-
-          inputFormatters: inputFormatters,
-          keyboardType: keyboardType
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(100.0),
+            borderSide: BorderSide.none
+          ),
+          fillColor: fillColor ?? Theme.of(context).inputDecorationTheme.fillColor,
+          filled: true,
+          isDense: true,
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 1.8.h,
+            horizontal: 3.w
+          ),
+        ),
+        inputFormatters: inputFormatters,
+        keyboardType: keyboardType,
+        readOnly: readOnly ?? false,
       ),
     );
   }

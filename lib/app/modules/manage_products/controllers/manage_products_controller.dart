@@ -69,23 +69,40 @@ class ManageProductsController extends GetxController {
     return c.future;
   }
 
-  updateList(BuildContext context){
-    Get.toNamed(Routes.ADD_PRODUCT)?.then((value){
+  openItem(BuildContext context, {required Products product}) {
+    Get.toNamed(Routes.ADD_PRODUCT, arguments: {
+      "product":product.toJson()
+    })?.then((value){
       if(value != null) {
-        Products x = value as Products;
+        Products x = value["product"] as Products;
         if(x.id != null) {
           String operation = "";
           int index = productList.value.indexWhere((element) => element.id == x.id);
-          if(index > -1) {
+          if(value["operation"] == "delete") {
             operation = "updated";
+            productList.value[index].reactive();
+            dbo.deleteProduct(value["product"]);
+          } else {
+            operation = "deleted";
             productList.value[index].reactive(x);
             dbo.updateProduct(jsonEncode(x));
-          } else {
-            productList.reactive.value?.add(x);
-            operation = "added";
-            dbo.addProduct(jsonEncode(x));
           }
-          CustomSnackBar(context, message: "Product was $operation successfully",)..show(context);
+
+
+          CustomSnackBar(context, message: "Product was $operation successfully",).show(context);
+        }
+      }
+    });
+  }
+
+  updateList(BuildContext context){
+    Get.toNamed(Routes.ADD_PRODUCT)?.then((value){
+      if(value != null) {
+        Products x = value["product"] as Products;
+        if(x.id != null) {
+          productList.reactive.value?.add(x);
+          dbo.addProduct(jsonEncode(x));
+          CustomSnackBar(context, message: "Product was added successfully",).show(context);
         }
       }
     });

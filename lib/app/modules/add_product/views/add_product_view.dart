@@ -9,6 +9,7 @@ import 'package:tap_payment/app/widgets/custom_text_input/custom_text_input_text
 import '../../../services/ui_reference.dart';
 import '../../../widgets/custom_app_bar/custom_app_bar.dart';
 
+import '../../../widgets/custom_icon_button/custom_icon_button.dart';
 import '../../../widgets/custom_text_input/custom_text_input.dart';
 import '../../../widgets/proceed_button/proceed_button.dart';
 import '../controllers/add_product_controller.dart';
@@ -22,6 +23,14 @@ class AddProductView extends GetView<AddProductController> {
       appBar: CustomAppBar(
         title: "Add Product",
         centerTitle: true,
+        actions: [
+          if(controller.operation.value != Operation.add)Obx(()=>CustomIconButton(
+            onPressed: controller.operation.value != Operation.edit ? (){
+              controller.edit();
+            } : null,
+            icon: Icons.edit,
+          ))
+        ],
       ),
       resizeToAvoidBottomInset: false,
       body: GestureDetector(
@@ -44,26 +53,30 @@ class AddProductView extends GetView<AddProductController> {
           CustomTextInput(
             label: "Product Name",
             textEditingController: controller.nameTextEditingController.value,
+            readOnly: controller.operation.value == Operation.view,
           ),
           SizedBox(height: 1.3.h),
           CustomTextInput(
             label: "Product Description",
             textEditingController: controller.descriptionTextEditingController.value,
+            readOnly: controller.operation.value == Operation.view,
           ),
           SizedBox(height: 1.3.h),
           CustomTextInput(
-              label: "Product Price",
-              textEditingController: controller.priceTextEditingController.value,
-              suffix: CustomTextInputTextSuffix(VariableConstants.currency),
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-                LengthLimitingTextInputFormatter(10)
-              ],
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
+            label: "Product Price",
+            textEditingController: controller.priceTextEditingController.value,
+            suffix: CustomTextInputTextSuffix(VariableConstants.currency),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+              LengthLimitingTextInputFormatter(10)
+            ],
+            keyboardType: TextInputType.numberWithOptions(decimal: true),
+            readOnly: controller.operation.value == Operation.view,
           ),
           SizedBox(height: 1.3.h),
           Obx(() => ProceedButton(
-            title: "Submit",
+            title: controller.operation.value == Operation.view ? "Delete" :
+              controller.operation.value == Operation.edit ? "Update" : "Submit",
             onPressed: controller.nameText.value != "" &&
                 controller.descText.value != "" &&
                 controller.priceText.value != "" ? () {
